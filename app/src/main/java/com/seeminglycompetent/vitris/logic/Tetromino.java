@@ -1,7 +1,5 @@
 package com.seeminglycompetent.vitris.logic;
 
-// hello
-
 /**
  * Tetromino
  * @author Siva Somayyajula

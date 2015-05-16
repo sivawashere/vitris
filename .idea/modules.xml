@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gestureimageview/gestureimageview.iml" filepath="$PROJECT_DIR$/gestureimageview/gestureimageview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gyroimageview/gyroimageview.iml" filepath="$PROJECT_DIR$/gyroimageview/gyroimageview.iml" />
       <module fileurl="file://$PROJECT_DIR$/vitris.iml" filepath="$PROJECT_DIR$/vitris.iml" />
     </modules>
   </component>

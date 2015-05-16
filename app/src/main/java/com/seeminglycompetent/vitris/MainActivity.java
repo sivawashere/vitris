@@ -1,5 +1,7 @@
 package com.seeminglycompetent.vitris;
 
+import com.polites.android.GestureImageView;
+
 import com.google.android.glass.media.Sounds;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;

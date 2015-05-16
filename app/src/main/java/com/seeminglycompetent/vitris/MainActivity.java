@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+
+//hi
 /**
  * An {@link Activity} showing a tuggable "Hello World!" card.
  * <p/>

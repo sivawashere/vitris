@@ -1,4 +1,4 @@
-package com.seeminglycompetent.vitris.logic;
+package com.seeminglycompetent.vitris;
 
 /**
  *

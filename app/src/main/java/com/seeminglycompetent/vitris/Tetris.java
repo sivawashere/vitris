@@ -1,9 +1,15 @@
-package com.seeminglycompetent.vitris.logic;
+package com.seeminglycompetent.vitris;
 
 /**
  * Main game logic
  * @author Siva Somayyajula
  */
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.View;
 
 import java.util.TimerTask;
 
@@ -130,4 +136,82 @@ public class Tetris extends TimerTask {
             // Refresh UI
         }
     }
+
+//    private void drawSquare(Graphics g, int x, int y, Tetromino shape)
+//    {
+//        Color colors[] = { new Color(0, 0, 0), new Color(204, 102, 102),
+//                new Color(102, 204, 102), new Color(102, 102, 204),
+//                new Color(204, 204, 102), new Color(204, 102, 204),
+//                new Color(102, 204, 204), new Color(218, 170, 0)
+//        };
+//
+//
+//        Color color = colors[shape.ordinal()];
+//
+//        g.setColor(color);
+//        g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
+//
+//        g.setColor(color.brighter());
+//        g.drawLine(x, y + squareHeight() - 1, x, y);
+//        g.drawLine(x, y, x + squareWidth() - 1, y);
+//
+//        g.setColor(color.darker());
+//        g.drawLine(x + 1, y + squareHeight() - 1,
+//                x + squareWidth() - 1, y + squareHeight() - 1);
+//        g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
+//                x + squareWidth() - 1, y + 1);
+//    }
+//
+
+
+    public void paint(Canvas c)
+    {
+        //super.paint(c);
+
+        int boardTop = (int) c.getHeight() - 22 * (c.getHeight()/22);
+
+
+        for (int i = 0; i < 22; ++i) {
+            for (int j = 0; j < 22; ++j) {
+                Shape shape = shapeAt(j, 22 - i - 1);
+                if (shape != Shape.NULL) {
+                    DrawView.onDraw(c, 0 + j * (c.getWidth() / 10), boardTop + i * (c.getHeight() / 22));
+                }
+            }
+        }
+
+        if (curPiece.getShape() != Shape.NULL) {
+            for (int i = 0; i < 4; ++i) {
+                int x = curX + curPiece.getX(i);
+                int y = curY - curPiece.getY(i);
+                DrawView.onDraw(c, (0+x*c.getWidth()/10), boardTop+(22-y-1)*(c.getHeight()/22));
+//                drawSquare(g, 0 + x * squareWidth(),
+//                        boardTop + (BoardHeight - y - 1) * squareHeight(),
+//                        curPiece.getShape());
+            }
+        }
+    }
+
+    public static class DrawView extends View
+    {
+        Paint paint = new Paint();
+        public DrawView(Context context)
+        {
+            super(context);
+        }
+
+        public static void onDraw(Canvas canvas, int x, int y)
+        {
+            Paint paint = new Paint();
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(3);
+            canvas.drawRect(x-1, y-1, x, y, paint);
+        }
+    }
+
+
+
+
+
+
 }

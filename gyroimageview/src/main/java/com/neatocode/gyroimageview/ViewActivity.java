@@ -64,21 +64,9 @@ public class ViewActivity extends Activity implements FilteredOrientationTracker
 		});
 		tracker = new FilteredOrientationTracker(this, this);
 
-		//start at top
-//		animateTo(1000);
-		
-//		float top_x = image.getImageX();
-//		float top_y = image.getScaledHeight() / 2;
-////		System.out.println(top_x + " " + top_y);
-//
-//		System.out.println(image.getImageX() + " " + image.getScaledHeight() / 2);
-//
-//		image.setPosition(top_x, top_y);
-//		image.redraw();
-
 		DrawView drawview = new DrawView(this);
-		setContentView(drawview);
-		setContentView(R.layout.view_activity);
+//		setContentView(drawview);
+//		setContentView(R.layout.view_activity);
 		addContentView(drawview, new ViewGroup.LayoutParams(100, 100));
 
 	}

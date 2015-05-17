@@ -4,12 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Log;
 import com.google.android.glass.touchpad.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsoluteLayout;
 
 import com.polites.android.GestureImageView;
 import com.polites.android.MoveAnimation;
@@ -30,7 +37,10 @@ public class ViewActivity extends Activity implements FilteredOrientationTracker
 	private MoveAnimation moveAnimation;
 	private FilteredOrientationTracker tracker;
 
-    @Override
+	DrawView drawView;
+
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
 		mGestureDetector = createGestureDetector(this);
 
@@ -40,6 +50,9 @@ public class ViewActivity extends Activity implements FilteredOrientationTracker
 
        	setContentView(R.layout.view_activity);
     	image = (GestureImageView) findViewById(R.id.image);
+
+
+
     	moveAnimation = new MoveAnimation();
 		moveAnimation.setAnimationTimeMS(ANIMATION_DURATION_MS);
 		moveAnimation.setMoveAnimationListener(new MoveAnimationListener() {
@@ -50,7 +63,49 @@ public class ViewActivity extends Activity implements FilteredOrientationTracker
 			}
 		});
 		tracker = new FilteredOrientationTracker(this, this);
-    }
+
+		//start at top
+//		animateTo(1000);
+		
+//		float top_x = image.getImageX();
+//		float top_y = image.getScaledHeight() / 2;
+////		System.out.println(top_x + " " + top_y);
+//
+//		System.out.println(image.getImageX() + " " + image.getScaledHeight() / 2);
+//
+//		image.setPosition(top_x, top_y);
+//		image.redraw();
+
+		DrawView drawview = new DrawView(this);
+		setContentView(drawview);
+		setContentView(R.layout.view_activity);
+		addContentView(drawview, new ViewGroup.LayoutParams(100, 100));
+
+	}
+
+	public class DrawView extends View
+	{
+		Paint paint = new Paint();
+		public DrawView(Context context)
+		{
+			super(context);
+		}
+
+		@Override
+		public void onDraw(Canvas canvas)
+		{
+			Paint paint = new Paint();
+			paint.setColor(Color.BLACK);
+			paint.setStrokeWidth(3);
+			canvas.drawRect(30, 30, 80, 80, paint);
+			paint.setColor(Color.CYAN);
+			canvas.drawRect(33,  60, 77, 77, paint);
+			paint.setColor(Color.YELLOW);
+			canvas.drawRect(33,  33, 77, 60, paint);
+		}
+	}
+
+
 
 	@Override
 	public void onResume() {
@@ -67,7 +122,7 @@ public class ViewActivity extends Activity implements FilteredOrientationTracker
 	// On gyro motion, start an animated scroll that direction.
 	@Override
 	public void onUpdate(float[] aGyro, float[] aGyroSum) {
-		System.out.println(aGyro[0] + " " + aGyro[1] + " " + aGyro[2]);
+//		System.out.println(aGyro[0] + " " + aGyro[1] + " " + aGyro[2]);
 		final float xGyro = aGyro[0];
 		final float deltaY = GYRO_TO_Y_PIXEL_DELTA_MULTIPLIER * xGyro;
 		animateTo(deltaY);
@@ -77,31 +132,30 @@ public class ViewActivity extends Activity implements FilteredOrientationTracker
 	private void animateTo(final float animationOffsetY) {
 		float nextY = image.getImageY() + animationOffsetY;
 		final int maxHeight = image.getScaledHeight();
-		final int topBoundary = (-maxHeight / 2) + image.getDisplayHeight();
-		final int bottomBoundary = (maxHeight / 2);
-		if ( nextY < topBoundary ) {
-			nextY = topBoundary;
-		} else if ( nextY > bottomBoundary ) {
+		final int bottomBoundary = (-maxHeight / 2) + image.getDisplayHeight();
+		final int topBoundary = (maxHeight / 2);
+		if ( nextY < bottomBoundary ) {
 			nextY = bottomBoundary;
+		} else if ( nextY > topBoundary ) {
+			nextY = topBoundary;
 		}
 		moveAnimation.reset();
 		moveAnimation.setTargetX(image.getImageX());
 		moveAnimation.setTargetY(nextY);
 
+//		System.out.println("Top boundary: " + topBoundary);
+//		System.out.println("Bottom boundary: " + bottomBoundary);
+//		System.out.println(image.getImageX() + " " + nextY);
+
+//		System.out.println(image.getImageX() + " " + image.getScaledHeight() / 2);
+
+
 //		moveAnimation.setTargetY(nextX);
 
 		image.animationStart(moveAnimation);
-	}
 
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		System.out.print("touched OUTSIDE");
-//		if(keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
-//			System.out.print("touched");
-//			return true;
-//		}
-//		return super.onKeyDown(keyCode, event);
-//	}
+
+	}
 
 	private GestureDetector mGestureDetector;
 

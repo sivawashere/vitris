@@ -8,6 +8,8 @@ import com.polites.android.GestureImageView;
 import com.polites.android.MoveAnimation;
 import com.polites.android.MoveAnimationListener;
 
+import java.util.Arrays;
+
 /**
  * View an image, scrolling it with head movements.
  *
@@ -56,6 +58,7 @@ public class ViewActivity extends Activity implements FilteredOrientationTracker
 	// On gyro motion, start an animated scroll that direction.
 	@Override
 	public void onUpdate(float[] aGyro, float[] aGyroSum) {
+		System.out.println(aGyro[0] + " " + aGyro[1] + " " + aGyro[2]);
 		final float yGyro = aGyro[1];
 		final float deltaX = GYRO_TO_X_PIXEL_DELTA_MULTIPLIER * yGyro;
 		animateTo(deltaX);		
@@ -73,8 +76,11 @@ public class ViewActivity extends Activity implements FilteredOrientationTracker
 			nextX = rightBoundary;
 		}
 		moveAnimation.reset();
-		moveAnimation.setTargetX(nextX);
-		moveAnimation.setTargetY(image.getImageY());
+//		moveAnimation.setTargetX(nextX);
+//		moveAnimation.setTargetY(image.getImageY());
+
+		moveAnimation.setTargetY(nextX);
+
 		image.animationStart(moveAnimation);
 	}
 }

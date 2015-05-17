@@ -4,10 +4,10 @@
     android:id="@+id/layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ff0000"
+    android:background="#000000"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
     <com.polites.android.GestureImageView
         android:id="@+id/image"

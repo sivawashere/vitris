@@ -1,4 +1,4 @@
-package com.seeminglycompetent.vitris;
+package com.seeminglycompetent.vitris.logic;
 
 /**
  * Shape of each Tetromino

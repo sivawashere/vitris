@@ -24,6 +24,10 @@ import com.polites.android.MoveAnimationListener;
 
 import java.util.Arrays;
 import com.neatocode.gyroimageview.HeadScrollView;
+
+import logic.Shape;
+import logic.Tetris;
+
 /**
  * View an image, scrolling it with head movements.
  *
@@ -39,16 +43,66 @@ public class ViewActivity extends Activity{
 
 	//DrawView drawView;
 
+	private Tetris t;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		//mGestureDetector = createGestureDetector(this);
 
 		super.onCreate(savedInstanceState);
-		//getWindow().setFormat(PixelFormat.RGB_565);
-		//ScreenOn.run(this);
 
 		setContentView(R.layout.view_activity);
+
+//		View v= (View) findViewById(R.id.r1c1);
+//		v.setBackgroundColor(Color.RED);
+//
+//		View x= (View) findViewById(R.id.r1c2);
+//		x.setBackgroundColor(Color.BLUE);
+
+		t = new Tetris();
+
+	}
+
+	@Override
+	public void onResume(Bundle savedInstanceState) {
+
+		super.onResume(savedInstanceState);
+
+		t.start();
+
+	}
+
+	public void paint() {
+
+		int R = 22;
+		int C = 10;
+
+		for (int i = 0; i < R; ++i) {
+			for (int j = 0; j < C; ++j) {
+				Shape shape = t.shapeAt(j, R - i - 1);
+				if (shape != Shape.NULL) {
+					String s = "r" + (i + 1) + "c" + (j + 1);
+
+					int resID = Context.getResources().getIdentifier(s, "id", "com.neatocode.gyroimageview.ViewActivity");
+
+					View v = (View) findViewById(resID);
+					v.setBackgroundColor(Color.RED);
+
+//                drawSquare(g, 0 + j * squareWidth(),
+//                            boardTop + i * squareHeight(), shape);
+				}
+			}
+
+//        if (curPiece.getShape() != Shape.NULL) {
+//            for (int i = 0; i < 4; ++i) {
+//                int x = curX + curPiece.x(i);
+//                int y = curY - curPiece.y(i);
+//                drawSquare(g, 0 + x * squareWidth(),
+//                        boardTop + (BoardHeight - y - 1) * squareHeight(),
+//                        curPiece.getShape());
+//            }
+//        }
+		}
 
 	}
 

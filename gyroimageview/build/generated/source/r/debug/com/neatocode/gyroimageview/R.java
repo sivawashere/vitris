@@ -17,6 +17,10 @@ public final class R {
         public static final int ic_stop=0x7f020003;
         public static final int image=0x7f020004;
     }
+    public static final class id {
+        public static final int r1c1=0x7f050000;
+        public static final int r1c2=0x7f050001;
+    }
     public static final class layout {
         public static final int view_activity=0x7f030000;
     }

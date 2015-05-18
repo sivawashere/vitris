@@ -14,11 +14,13 @@
         android:weightSum="10" >
 
         <View
+            android:id="@+id/r1c1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/black" />
         <View
+            android:id="@+id/r1c2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
